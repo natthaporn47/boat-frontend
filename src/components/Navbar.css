@@ -1,27 +1,26 @@
+/* ปุ่มเปิด-ปิดเมนู สามขีด*/
 .menu-button {
   position: fixed;
-  top: 20px;
-  left: 20px;
-
-  width: 45px;
+  top: 15px;
+  left: 15px;
+  width: 50px;
   height: 45px;
-
-  font-size: 24px;
-
+  font-size: 45px;
+  display: flex;
+  align-items: center; /*จัดให้ไอคอนอยู่ตรงกลางแนวตั้ง*/
+  justify-content: center; /*ตรงกลางแนวตนอน*/
   background: #0d6efd;
   color: white;
-
+  
   border: none;
-  border-radius: 8px;
-
-  cursor: pointer;
+  border-radius: 5px;
+  cursor: pointer;  /*🖱️->👆*/
 
   z-index: 1000;
 }
-
+/*ขนาดความกว้างของเมนู สีน้ำเงิน*/
 .navbar {
   position: fixed;
-
   top: 0;
   left: -320px;
 
@@ -41,33 +40,33 @@
   left: 0;
 }
 
-.navbar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  color: white;
-
-  margin-bottom: 30px;
-}
-
 .close-button {
-  background: none;
-  border: none;
+  position: absolute;
+  top: 15px;
+  right: 10px;
   color: white;
-  font-size: 20px;
-  cursor: pointer;
+  font-size: 30px;
+  background: transparent;
+  border: none;
 }
 
 .menu-item {
-  display: block;
+  display: flex;
   padding: 14px 20px;
   margin-bottom: 6px;
   color: white;
   text-decoration: none;
   border-radius: 10px; /* ขอบมน */
 }
-/* สีการเลื่นแบบไม่คิด*/
+
+/* ไอคอนหน้าข้อความ */
+.menu-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+}
+
+/* สีการเลื่อนแบบไม่คลิก*/
 .menu-item:hover {
   background: #12345a;
 }
@@ -77,3 +76,4 @@
   background: #0d6efd;
   color: white;
 }
+
