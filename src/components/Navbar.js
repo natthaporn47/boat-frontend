@@ -3,20 +3,13 @@ import { NavLink } from "react-router-dom";
 import "../components/Navbar.css";
 import { Icon } from "@iconify/react";
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false); // ☰ ปิดอยู่
+function Navbar({isOpen, setIsOpen}) {
   const closeMenu = () => {
     setIsOpen(false);
   };
   return (
-    <>
-    {!isOpen && ( /* ปุ่มเปิด-ปิดเมนู การทำงาน*/
-      <button className="menu-button" onClick={() => setIsOpen(!isOpen)}>
-        <Icon icon="akar-icons:three-line-horizontal" />
-      </button>
-    )}
       <div className={`navbar ${isOpen ? "open" : ""}`}>
-        <button class="close-button " onClick={() => setIsOpen(!isOpen)}>
+        <button class="close-button " onClick={() => setIsOpen(false)}>
           <Icon icon="bitcoin-icons:cross-outline" />
         </button>
         <br />
@@ -52,7 +45,7 @@ function Navbar() {
           ประวัติการทำงาน
         </NavLink>
       </div>
-    </>
+
   );
 }
 

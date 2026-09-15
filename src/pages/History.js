@@ -1,11 +1,19 @@
-import React from 'react';
+import React from "react";
+import PageHeader from "../components/PageHeader";
 
-function History() {
+function History({onMenuClick}) {
   return (
-    <div>
-      <h1>ประวัติการทำงาน</h1>
-      <p>หน้านี้ใช้แสดงประวัติการทำงานของเรือ</p>
-    </div>
+    <>
+      <PageHeader
+        title="ประวัติการทำงาน"
+        subtitle="ระบบควบคุมเรือพ่นยาอัตโนมัติ"
+        onMenuClick={onMenuClick}
+      />
+      <div className="system-status-text">
+        สถานะ: ระบบจำลองทำงานปกติ
+        <span className="status-dot"></span>
+      </div>
+    </>
   );
 }
 

@@ -1,0 +1,29 @@
+.layout {
+  width: 100%;
+  min-height: 100vh;
+
+  position: relative;
+}
+
+/* พื้นที่หลักของเว็บไซต์ */
+.page-area {
+  width: 100%;
+  min-height: 100vh;
+
+  margin-left: 0;
+
+  transition: margin-left 0.3s ease;
+
+  box-sizing: border-box;
+}
+
+
+/*
+  เมื่อ Navbar เปิด
+  ให้พื้นที่เว็บขยับไปทางขวา
+*/
+.app-layout:has(.navbar.open) .page-area {
+  margin-left: min(320px, 85vw);
+
+  width: calc(100% - min(320px, 85vw));
+}

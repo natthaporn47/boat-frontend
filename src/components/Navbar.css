@@ -18,26 +18,27 @@
 
   z-index: 1000;
 }
-/*ขนาดความกว้างของเมนู สีน้ำเงิน*/
+
 .navbar {
   position: fixed;
+
   top: 0;
-  left: -320px;
+  left: 0;
 
   width: min(320px, 85vw);
-  height: 100%;
+  height: 100vh;
 
   background: #07182d;
 
-  padding: 20px;
-  box-sizing: border-box;
-  transition: 0.3s;
+  z-index: 1000;
 
-  z-index: 999;
+  transform: translateX(-100%);
+
+  transition: transform 0.3s ease;
 }
 
 .navbar.open {
-  left: 0;
+  transform: translateX(0);
 }
 
 .close-button {
@@ -75,5 +76,11 @@
 .menu-item.active {
   background: #0d6efd;
   color: white;
+}
+
+.main-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 0;
 }
 
