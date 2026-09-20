@@ -32,7 +32,7 @@ function Navbar({isOpen, setIsOpen}) {
             isActive ? "menu-item active" : "menu-item"
           }
         >
-          <Icon icon="gis:map-route" className="menu-icon" /> สร้างภารกิจ
+          <Icon icon="gis:map-route" className="menu-icon" />ภารกิจ / แผนที่
         </NavLink>
         <NavLink
           to="/history"

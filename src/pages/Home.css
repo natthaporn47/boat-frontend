@@ -1,0 +1,58 @@
+.home-content {
+  padding: 15px;
+}
+
+/* แถวบน 3 คอลัมน์ */
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 16px;
+}
+
+/* แถวกลาง 2 คอลัมน์ */
+.main-grid {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* แถวล่าง 2 คอลัมน์ */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* กรอบแต่ละช่อง */
+.dashboard-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-sizing: border-box;
+}
+
+.control-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.control-button {
+  width: 100%;
+  padding: 13px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 16px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  
+}

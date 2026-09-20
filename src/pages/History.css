@@ -1,0 +1,94 @@
+.history-content {
+  padding: 15px;
+}
+
+.history-filter {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.history-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.history-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.history-filter {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.history-filter > label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.date-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.date-box span {
+  font-size: 11px;
+  color: #777;
+}
+
+.date-box input {
+  width: 175px;
+  height: 38px;
+
+  padding: 0 10px;
+
+  border: 1px solid #d9dfe7;
+  border-radius: 6px;
+
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.date-separator {
+  margin-top: 16px;
+  font-size: 18px;
+  color: #555;
+}
+
+.filter-button {
+  margin-left: auto;
+  margin-top: 16px;
+
+  height: 38px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #0d6efd;
+  color: white;
+
+  cursor: pointer;
+}
