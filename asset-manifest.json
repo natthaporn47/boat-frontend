@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/boat-frontend/static/css/main.d6e6122c.css",
+    "main.js": "/boat-frontend/static/js/main.b73b7f46.js",
+    "static/js/453.dbadbd9c.chunk.js": "/boat-frontend/static/js/453.dbadbd9c.chunk.js",
+    "index.html": "/boat-frontend/index.html",
+    "main.d6e6122c.css.map": "/boat-frontend/static/css/main.d6e6122c.css.map",
+    "main.b73b7f46.js.map": "/boat-frontend/static/js/main.b73b7f46.js.map",
+    "453.dbadbd9c.chunk.js.map": "/boat-frontend/static/js/453.dbadbd9c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d6e6122c.css",
+    "static/js/main.b73b7f46.js"
+  ]
+}
