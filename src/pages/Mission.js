@@ -3,6 +3,7 @@ import PageHeader from '../components/PageHeader';
 import './Mission.css';
 import { Icon } from '@iconify/react';
 import Popup from '../components/Popup';
+import MapView from '../components/MapView';
 
 function Mission({ onMenuClick }) {
 
@@ -23,12 +24,7 @@ function Mission({ onMenuClick }) {
 
           {/* แผนที่ */}
           <div className="mission-map-card">
-
-            <div className="map-placeholder">
-              <p>แผนที่การทำงาน</p>
-              <span>Map Area</span>
-            </div>
-
+            <MapView />
           </div>
 
 

@@ -3,6 +3,7 @@ import PageHeader from '../components/PageHeader';
 import '../pages/Home.css';
 import { Icon } from '@iconify/react';
 import Popup from '../components/Popup';
+import MapView from '../components/MapView';
 
 function Home({onMenuClick}) {
   const [showPopup, setShowPopup] = useState(false);
@@ -43,7 +44,7 @@ function Home({onMenuClick}) {
 
           <div className="dashboard-card map-card">
             <h3>แผนที่การทำงาน</h3>
-
+            <MapView />
             {/* ตรงนี้ค่อยใส่ Map */}
           </div>
         </div>
