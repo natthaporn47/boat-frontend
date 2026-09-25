@@ -13,7 +13,6 @@ function Mission({ onMenuClick }) {
     <>
       <PageHeader
         title="ภารกิจ / แผนที่"
-        subtitle="Mission / Map"
         onMenuClick={onMenuClick}
       />
 

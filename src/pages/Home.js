@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import PageHeader from '../components/PageHeader';
 import '../pages/Home.css';
 import { Icon } from '@iconify/react';
 import Popup from '../components/Popup';
 import MapView from '../components/MapView';
+import { connectBoatWebSocket } from '../services/boatWebSocket';
 
 function Home({onMenuClick}) {
   const [showPopup, setShowPopup] = useState(false);

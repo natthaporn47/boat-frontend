@@ -8,7 +8,6 @@ function History({ onMenuClick }) {
     <>
       <PageHeader
         title="ประวัติการทำงาน"
-        subtitle="ระบบควบคุมเรือพ่นยาอัตโนมัติ"
         onMenuClick={onMenuClick}
       />
       <div className="history-content">

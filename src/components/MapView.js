@@ -1,64 +1,45 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 
-import {
-  MapContainer,
-  TileLayer,
-  LayersControl
-} from "react-leaflet";
+const API_KEY = "AIzaSyALzQkWIi-AbqfDIFgBKkuzkuYpmeSGaaI";
 
-import "leaflet/dist/leaflet.css";
+function MapView() {
+  const mapRef = useRef(null);
 
+  useEffect(() => {
+    async function initMap() {
+      setOptions({
+        key: API_KEY,
+        v: "weekly",
+      });
 
-const { BaseLayer } = LayersControl;
+      const { Map } = await importLibrary("maps");
 
+      new Map(mapRef.current, {
+        center: {
+          lat: 13.736421,
+          lng: 100.537812,
+        },
+        zoom: 15,
+        mapTypeControl: true,
+        streetViewControl: false,
+        fullscreenControl: true,
+      });
+    }
 
-function MapView(){
+    initMap();
+  }, []);
 
   return (
-
-    <MapContainer
-      center={[13.736421,100.537812]}
-      zoom={16}
+    <div
+      ref={mapRef}
       style={{
-        width:"100%",
-        height:"500px"
+        width: "100%",
+        height: "450px",
+        borderRadius: "12px",
       }}
-    >
-
-      <LayersControl position="topright">
-
-
-        {/* แผนที่ปกติ */}
-        <BaseLayer checked name="แผนที่">
-
-          <TileLayer
-            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-
-        </BaseLayer>
-
-
-
-        {/* ดาวเทียม */}
-        <BaseLayer name="ดาวเทียม">
-
-          <TileLayer
-
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-
-          />
-
-        </BaseLayer>
-
-
-      </LayersControl>
-
-
-    </MapContainer>
-
+    />
   );
-
 }
-
 
 export default MapView;

@@ -1,18 +1,24 @@
 .page-header {
   width: 100%;
-  min-height: 90px;
+  min-height: 40px;
 
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
 
   padding: 20px 30px;
 
-  background: white;
+  background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
 
   box-sizing: border-box;
-  
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  width: 100%;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
 }
 
 .header-menu-button {
@@ -20,23 +26,25 @@
   align-items: center;
   justify-content: center;
 
-  width: 45px;
-  height: 45px;
-
+  width: 60px;
+  height: 50px;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #222;
   margin-right: 15px;
-
-  background: #0d6efd;
-  color: white;
-
   border: none;
-  border-radius: 6px;
-
+  
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header-menu-button:hover {
+  background-color: #e5e5e5;
 }
 
 .header-menu-button svg {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
 }
 
 
@@ -56,17 +64,6 @@
   font-size: 13px;
   color: #64748b;
 }
-
-
-/* ส่วนสถานะ */
-.system-status {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  gap: 6px;
-}
-
 
 /* ปุ่มโหมดจำลอง */
 .simulation-button {
@@ -107,13 +104,83 @@
 }
 
 
-/* จุดสีเขียว */
 .status-dot {
-  width: 7px;
-  height: 7px;
-
-  background: #22c55e;
-
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
 }
 
+/* Raspberry Pi เชื่อมต่อได้ */
+.status-dot.online {
+  background-color: #28b463;
+}
+
+/* Raspberry Pi เชื่อมต่อไม่ได้ */
+.status-dot.offline {
+  background-color: #dc3545;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* สถานะระบบ */
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #28b463;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* เวลา */
+.current-time {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.current-time svg {
+  font-size: 20px;
+  color: #687078;
+}
+
+/* ปุ่มตั้งค่า */
+.settings-button {
+  border: none;
+  background: transparent;
+  padding: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.settings-button svg {
+  font-size: 21px;
+  color: #20252b;
+}
+
+.settings-button:hover svg {
+  color: #1677ff;
+}
