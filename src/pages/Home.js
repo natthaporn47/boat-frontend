@@ -1,13 +1,58 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PageHeader from '../components/PageHeader';
 import '../pages/Home.css';
 import { Icon } from '@iconify/react';
 import Popup from '../components/Popup';
 import MapView from '../components/MapView';
-import { connectBoatWebSocket } from '../services/boatWebSocket';
 
 function Home({onMenuClick}) {
   const [showPopup, setShowPopup] = useState(false);
+  const [piOnline, setPiOnline] = useState(false);
+  const [boatData, setBoatData] = useState(null);
+    useEffect(() => {
+  
+      const checkPiStatus = async () => {
+  
+        try {
+  
+          const response = await fetch(
+            "http://100.73.198.53:8000/api/status"
+          );
+  
+          if (!response.ok) {
+            throw new Error("Pi response error");
+          }
+  
+          // อ่านข้อมูลจาก Pi
+          const data = await response.json();
+  
+          console.log("ข้อมูลจาก Raspberry Pi:", data);
+  
+          // ถ้าได้รับข้อมูลจาก Pi ถือว่าออนไลน์
+          // เก็บข้อมูลที่ได้จาก Backend
+          setBoatData(data);
+          setPiOnline(true);
+  
+        } catch (error) {
+  
+          console.log("ไม่สามารถเชื่อมต่อ Raspberry Pi:", error);
+          setBoatData(null);
+          setPiOnline(false);
+        }
+      };
+  
+      // ตรวจสอบทันทีเมื่อเปิดหน้า
+      checkPiStatus();
+  
+      // ตรวจสอบซ้ำทุก 3 วินาที
+      const piTimer = setInterval(() => {
+        checkPiStatus();
+      }, 3000);
+  
+      return () => clearInterval(piTimer);
+  
+    }, []);
+  
   return (
     <>
       <PageHeader
@@ -20,7 +65,19 @@ function Home({onMenuClick}) {
         <div className="status-grid">
           <div className="dashboard-card">
             <h3>สถานะเรือ</h3>
-            <p>🟢 ONLINE</p>
+            <div className="boat-status">
+              <span
+                className={`boat-status-dot ${
+                  piOnline ? "online" : "offline"
+                }`}
+              ></span>
+
+              <span>
+                {piOnline
+                  ? "Raspberry Pi พร้อมใช้งาน"
+                  : "Raspberry Pi ไม่พร้อมใช้งาน"}
+              </span>
+            </div>
           </div>
 
           <div className="dashboard-card">
