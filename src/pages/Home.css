@@ -56,27 +56,57 @@
   gap: 5px;
   
 }
+/* =========================
+   สถานะระบบ
+========================= */
 
-.boat-status {
+.system-status-card {
+  min-height: 300px;
+}
+
+.system-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.system-status-row:last-child {
+  border-bottom: none;
+}
+
+.system-status-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #222;
+}
+
+.system-status-name svg {
+  width: 20px;
+  height: 20px;
+}
+
+.system-status-value {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #333;
+  font-size: 13px;
 }
 
-.boat-status-dot {
-  width: 10px;
-  height: 10px;
+.system-status-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
-  transition: background-color 0.3s ease;
 }
 
-.boat-status-dot.online {
+.system-status-dot.online {
   background-color: #28b463;
 }
 
-.boat-status-dot.offline {
+.system-status-dot.offline {
   background-color: #dc3545;
 }

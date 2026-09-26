@@ -18,7 +18,11 @@
 
 
 .popup-box {
-  width: 420px;
+  position: relative;
+  width: 460px;
+  max-width: calc(100vw - 32px);
+  max-height: 90vh;
+  overflow-y: auto;
 
   background: white;
 
@@ -29,10 +33,39 @@
   box-sizing: border-box;
 }
 
+.popup-close-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #4b5563;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.popup-close-button:hover {
+  color: #111827;
+}
+
 
 .popup-box h2 {
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+.chemical-entry {
+  margin-top: 20px;
+  padding-top: 4px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chemical-entry h3 {
+  margin: 14px 0 0;
+  font-size: 16px;
 }
 
 

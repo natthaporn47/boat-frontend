@@ -1,58 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import PageHeader from '../components/PageHeader';
-import '../pages/Home.css';
-import { Icon } from '@iconify/react';
-import Popup from '../components/Popup';
-import MapView from '../components/MapView';
+import React, { useState, useEffect } from "react";
+import PageHeader from "../components/PageHeader";
+import "../pages/Home.css";
+import { Icon } from "@iconify/react";
+import Popup from "../components/Popup";
+import MapView from "../components/MapView";
 
-function Home({onMenuClick}) {
+function Home({ onMenuClick }) {
   const [showPopup, setShowPopup] = useState(false);
   const [piOnline, setPiOnline] = useState(false);
   const [boatData, setBoatData] = useState(null);
-    useEffect(() => {
-  
-      const checkPiStatus = async () => {
-  
-        try {
-  
-          const response = await fetch(
-            "http://100.73.198.53:8000/api/status"
-          );
-  
-          if (!response.ok) {
-            throw new Error("Pi response error");
-          }
-  
-          // อ่านข้อมูลจาก Pi
-          const data = await response.json();
-  
-          console.log("ข้อมูลจาก Raspberry Pi:", data);
-  
-          // ถ้าได้รับข้อมูลจาก Pi ถือว่าออนไลน์
-          // เก็บข้อมูลที่ได้จาก Backend
-          setBoatData(data);
-          setPiOnline(true);
-  
-        } catch (error) {
-  
-          console.log("ไม่สามารถเชื่อมต่อ Raspberry Pi:", error);
-          setBoatData(null);
-          setPiOnline(false);
+  useEffect(() => {
+    const checkPiStatus = async () => {
+      try {
+        const response = await fetch("http://100.73.198.53:8000/api/status");
+
+        if (!response.ok) {
+          throw new Error("Pi response error");
         }
-      };
-  
-      // ตรวจสอบทันทีเมื่อเปิดหน้า
+
+        // อ่านข้อมูลจาก Pi
+        const data = await response.json();
+
+        console.log("ข้อมูลจาก Raspberry Pi:", data);
+
+        // ถ้าได้รับข้อมูลจาก Pi ถือว่าออนไลน์
+        // เก็บข้อมูลที่ได้จาก Backend
+        setBoatData(data);
+        setPiOnline(true);
+      } catch (error) {
+        console.log("ไม่สามารถเชื่อมต่อ Raspberry Pi:", error);
+        setBoatData(null);
+        setPiOnline(false);
+      }
+    };
+
+    // ตรวจสอบทันทีเมื่อเปิดหน้า
+    checkPiStatus();
+
+    // ตรวจสอบซ้ำทุก 3 วินาที
+    const piTimer = setInterval(() => {
       checkPiStatus();
-  
-      // ตรวจสอบซ้ำทุก 3 วินาที
-      const piTimer = setInterval(() => {
-        checkPiStatus();
-      }, 3000);
-  
-      return () => clearInterval(piTimer);
-  
-    }, []);
-  
+    }, 3000);
+
+    return () => clearInterval(piTimer);
+  }, []);
+
   return (
     <>
       <PageHeader
@@ -63,23 +55,99 @@ function Home({onMenuClick}) {
       <div className="home-content">
         {/* แถวที่ 1 */}
         <div className="status-grid">
-          <div className="dashboard-card">
-            <h3>สถานะเรือ</h3>
-            <div className="boat-status">
-              <span
-                className={`boat-status-dot ${
-                  piOnline ? "online" : "offline"
-                }`}
-              ></span>
+          <div className="dashboard-card system-status-card">
+            <h3>สถานะระบบ</h3>
 
-              <span>
-                {piOnline
-                  ? "Raspberry Pi พร้อมใช้งาน"
-                  : "Raspberry Pi ไม่พร้อมใช้งาน"}
-              </span>
+            {/* Raspberry Pi */}
+            <div className="system-status-row">
+              <div className="system-status-name">
+                <Icon icon="fontisto:raspberry-pi" />
+                <span>Raspberry Pi</span>
+              </div>
+
+              <div className="system-status-value">
+                <span>{piOnline ? "พร้อมใช้งาน" : "ไม่พร้อมใช้งาน"}</span>
+
+                <span
+                  className={`system-status-dot ${
+                    piOnline ? "online" : "offline"
+                  }`}
+                />
+              </div>
+            </div>
+
+            {/* ระบบควบคุม */}
+            <div className="system-status-row">
+              <div className="system-status-name">
+                <Icon icon="mdi:robot-outline" />
+                <span>ระบบควบคุม</span>
+              </div>
+
+              <div className="system-status-value">
+                <span>{boatData ? "พร้อมใช้งาน" : "ไม่พร้อมใช้งาน"}</span>
+
+                <span
+                  className={`system-status-dot ${
+                    boatData ? "online" : "offline"
+                  }`}
+                />
+              </div>
+            </div>
+
+            {/* GPS */}
+            <div className="system-status-row">
+              <div className="system-status-name">
+                <Icon icon="bx:map" />
+                <span>GPS</span>
+              </div>
+
+              <div className="system-status-value">
+                <span>{boatData?.gps ? "รับสัญญาณปกติ" : "ไม่มีสัญญาณ"}</span>
+
+                <span
+                  className={`system-status-dot ${
+                    boatData?.gps ? "online" : "offline"
+                  }`}
+                />
+              </div>
+            </div>
+
+            {/* LiDAR */}
+            <div className="system-status-row">
+              <div className="system-status-name">
+                <Icon icon="gala:radar" />
+                <span>LiDAR</span>
+              </div>
+
+              <div className="system-status-value">
+                <span>{boatData?.lidar ? "ทำงานปกติ" : "ไม่พร้อมใช้งาน"}</span>
+
+                <span
+                  className={`system-status-dot ${
+                    boatData?.lidar ? "online" : "offline"
+                  }`}
+                />
+              </div>
+            </div>
+
+            {/* การเชื่อมต่อเรือ */}
+            <div className="system-status-row">
+              <div className="system-status-name">
+                <Icon icon="gravity-ui:plug-connection" />
+                <span>การเชื่อมต่อเรือ</span>
+              </div>
+
+              <div className="system-status-value">
+                <span>{piOnline ? "เชื่อมต่อแล้ว" : "ไม่ได้เชื่อมต่อ"}</span>
+
+                <span
+                  className={`system-status-dot ${
+                    piOnline ? "online" : "offline"
+                  }`}
+                />
+              </div>
             </div>
           </div>
-
           <div className="dashboard-card">
             <h3>ภารกิจปัจจุบัน</h3>
             <p>พ่นยาแปลง A</p>
@@ -142,15 +210,14 @@ function Home({onMenuClick}) {
           </div>
         </div>
         <Popup
-  isOpen={showPopup}
-  onClose={() => setShowPopup(false)}
-  onConfirm={(data) => {
-    console.log(data);
-    setShowPopup(false);
-  }}
-/>
+          isOpen={showPopup}
+          onClose={() => setShowPopup(false)}
+          onConfirm={(data) => {
+            console.log(data);
+            setShowPopup(false);
+          }}
+        />
       </div>
-      
     </>
   );
 }

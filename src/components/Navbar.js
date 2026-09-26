@@ -9,8 +9,8 @@ function Navbar({isOpen, setIsOpen}) {
   };
   return (
       <div className={`navbar ${isOpen ? "open" : ""}`}>
-        <button class="close-button " onClick={() => setIsOpen(false)}>
-          <Icon icon="bitcoin-icons:cross-outline" />
+        <button class="close-button " title="ปิด"onClick={() => setIsOpen(false)}>
+          <Icon icon="bitcoin-icons:cross-outline" />  
         </button>
         <br />
         <br />
