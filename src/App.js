@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 
 import { HashRouter, Routes, Route } from "react-router-dom";
 
@@ -7,7 +6,6 @@ import Home from "./pages/Home";
 import Mission from "./pages/Mission";
 import History from "./pages/History";
 
-import Navbar from "./components/Navbar";
 import Layout from "./components/Layout";
 
 function App() {
@@ -15,8 +13,7 @@ function App() {
 
   return (
     <HashRouter>
-      <Layout>
-        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Layout isOpen={isOpen} setIsOpen={setIsOpen}>
 
         <Routes>
           <Route

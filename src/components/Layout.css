@@ -1,29 +1,32 @@
-.layout {
-  width: 100%;
-  min-height: 100vh;
-
-  position: relative;
+﻿:root {
+  --dashboard-bg: #eaf3f7;
+  --surface: #fff;
+  --border: #e1e8ef;
+  --text: #172b40;
+  --muted: #64748b;
+  --primary: #0d6efd;
+  --card-radius: 12px;
+  --sidebar-width: 248px;
+  --page-space: clamp(16px, 2vw, 32px);
+  --section-gap: 20px;
 }
-
-/* พื้นที่หลักของเว็บไซต์ */
-.page-area {
-  width: 100%;
-  min-height: 100vh;
-
-  margin-left: 0;
-
-  transition: margin-left 0.3s ease;
-
-  box-sizing: border-box;
+*, *::before, *::after { box-sizing: border-box; }
+body { color: var(--text); background: var(--dashboard-bg); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 14px; line-height: 1.5; }
+button, input, select { font: inherit; }
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #7ab6ff; outline-offset: 3px; }
+.app-layout { position: relative; min-height: 100vh; }
+.page-area { width: 100%; min-width: 0; min-height: 100vh; transition: margin-left .2s ease, width .2s ease; }
+.home-content, .mission-content, .history-content { width: 100%; max-width: 1600px; min-width: 0; margin-inline: auto; padding: var(--page-space); }
+.dashboard-card, .mission-map-card, .mission-info-card, .route-summary, .mission-legend, .history-filter, .history-card, .history-list { min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); box-shadow: 0 2px 5px #102c4704; }
+.dashboard-card h3, .mission-content h3 { font-size: 16px; line-height: 1.4; font-weight: 600; margin: 0 0 16px; }
+.navigation-backdrop { display: none; }
+@media (min-width: 1280px) {
+  .navigation-open .page-area { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); }
 }
-
-
-/*
-  เมื่อ Navbar เปิด
-  ให้พื้นที่เว็บขยับไปทางขวา
-*/
-.app-layout:has(.navbar.open) .page-area {
-  margin-left: min(320px, 85vw);
-
-  width: calc(100% - min(320px, 85vw));
+@media (max-width: 1279px) {
+  :root { --page-space: 20px; --section-gap: 16px; }
+  .navigation-backdrop { display: block; position: fixed; inset: 0; z-index: 50; padding: 0; border: 0; background: #07182d70; cursor: pointer; }
 }
+@media (max-width: 767px) { :root { --page-space: 16px; } }
+@media (prefers-reduced-motion: reduce) { .page-area, .navbar { transition: none; } }

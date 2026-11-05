@@ -1,112 +1,35 @@
-.home-content {
-  padding: 15px;
+﻿.status-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--section-gap); align-items: stretch; }
+.dashboard-card { padding: 20px; }
+.main-grid { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 2fr); gap: var(--section-gap); margin-top: var(--section-gap); align-items: stretch; }
+.control-card { display: flex; flex-direction: column; gap: 12px; }
+.control-card h3 { margin-bottom: 4px; }
+.control-button { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 10px 16px; border: 0; border-radius: 8px; color: white; font-size: 14px; font-weight: 600; cursor: pointer; }
+.control-button svg { width: 18px; height: 18px; flex-shrink: 0; }
+.control-start { background: #0d6efd; }
+.control-pause { background: #fbc216; color: #533d00; }
+.control-emergency { background: #dc3545; }
+.system-status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 10px 0; border-bottom: 1px solid #edf1f5; }
+.system-status-row:last-child { border: 0; padding-bottom: 0; }
+.system-status-name, .system-status-value { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.system-status-name { font-size: 13px; color: #334155; }
+.system-status-name svg { width: 18px; height: 18px; flex-shrink: 0; color: #64748b; }
+.system-status-value { flex-shrink: 0; color: #64748b; font-size: 12px; }
+.system-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.system-status-dot.online { background: #28b463; }
+.system-status-dot.offline { background: #dc3545; }
+.location-card p { margin: 12px 0; color: #475569; font-size: 14px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.map-card .map-view { --map-height: clamp(320px, 42vh, 460px); }
+@media (min-width: 1280px) { .navigation-open .status-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, .85fr) minmax(0, 1fr); } }
+@media (min-width: 768px) and (max-width: 1279px) {
+  .status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .control-card { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-content: start; }
+  .control-card h3 { grid-column: 1 / -1; }
+  .main-grid { grid-template-columns: minmax(220px, .8fr) minmax(0, 1.8fr); }
+  .dashboard-card { padding: 16px; }
 }
-
-/* แถวบน 3 คอลัมน์ */
-.status-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
-  gap: 16px;
-}
-
-/* แถวกลาง 2 คอลัมน์ */
-.main-grid {
-  display: grid;
-  grid-template-columns: 35% 65%;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-/* แถวล่าง 2 คอลัมน์ */
-.bottom-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-/* กรอบแต่ละช่อง */
-.dashboard-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  box-sizing: border-box;
-}
-
-.control-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.control-button {
-  width: 100%;
-  padding: 13px 16px;
-
-  border: none;
-  border-radius: 8px;
-
-  font-size: 16px;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  
-}
-/* =========================
-   สถานะระบบ
-========================= */
-
-.system-status-card {
-  min-height: 300px;
-}
-
-.system-status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 13px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.system-status-row:last-child {
-  border-bottom: none;
-}
-
-.system-status-name {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: #222;
-}
-
-.system-status-name svg {
-  width: 20px;
-  height: 20px;
-}
-
-.system-status-value {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-
-.system-status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.system-status-dot.online {
-  background-color: #28b463;
-}
-
-.system-status-dot.offline {
-  background-color: #dc3545;
+@media (max-width: 767px) {
+  .status-grid, .main-grid { grid-template-columns: minmax(0, 1fr); }
+  .dashboard-card { padding: 16px; }
+  .control-card { display: flex; }
+  .map-card .map-view { --map-height: clamp(280px, 45svh, 400px); }
 }

@@ -45,7 +45,7 @@ function Popup({ isOpen, onClose, onConfirm }) {
   return (
     <div className="popup-overlay">
 
-      <div className="popup-box">
+      <div className="popup-box" role="dialog" aria-modal="true" aria-labelledby="spray-popup-title">
         <button
           className="popup-close-button"
           type="button"
@@ -60,7 +60,7 @@ function Popup({ isOpen, onClose, onConfirm }) {
           event.preventDefault();
           handleConfirm();
         }}>
-          <h2>ข้อมูลการพ่นยา</h2>
+          <h2 id="spray-popup-title">ข้อมูลการพ่นยา</h2>
 
           <label htmlFor="chemical-count">จำนวนชนิดน้ำยา</label>
           <select

@@ -153,9 +153,25 @@ function Home({ onMenuClick }) {
             <p>พ่นยาแปลง A</p>
           </div>
 
-          <div className="dashboard-card">
-            <h3>ความเร็ว</h3>
-            <p>2.1 km/h</p>
+          <div className="dashboard-card control-card">
+            <h3>ควบคุมเรือ</h3>
+
+            <button
+              className="control-button control-start"
+              onClick={() => setShowPopup(true)}
+            >
+              <Icon icon="carbon:play-filled-alt"></Icon>เริ่มภารกิจ
+            </button>
+            <button
+              className="control-button control-pause"
+            >
+              <Icon icon="carbon:stop-filled-alt"></Icon>หยุดชั่วคราว
+            </button>
+            <button
+              className="control-button control-emergency"
+            >
+              <Icon icon="ci:triangle-warning"></Icon>หยุดฉุกเฉิน
+            </button>
           </div>
         </div>
 
@@ -175,40 +191,6 @@ function Home({ onMenuClick }) {
           </div>
         </div>
 
-        {/* แถวที่ 3 */}
-        <div className="bottom-grid">
-          <div className="dashboard-card">
-            <h3>สถานะระบบ</h3>
-
-            <p>GPS 🟢</p>
-            <p>LiDAR 🟢</p>
-            <p>แบตเตอรี่ 78%</p>
-          </div>
-
-          <div className="dashboard-card control-card">
-            <h3>ควบคุมเรือ</h3>
-
-            <button
-              className="control-button"
-              style={{ backgroundColor: "#007bff", color: "white" }}
-              onClick={() => setShowPopup(true)}
-            >
-              <Icon icon="carbon:play-filled-alt"></Icon>เริ่มภารกิจ
-            </button>
-            <button
-              className="control-button"
-              style={{ backgroundColor: "#fbc216f7", color: "white" }}
-            >
-              <Icon icon="carbon:stop-filled-alt"></Icon>หยุดชั่วคราว
-            </button>
-            <button
-              className="control-button"
-              style={{ backgroundColor: "#dc3545", color: "white" }}
-            >
-              <Icon icon="ci:triangle-warning"></Icon>หยุดฉุกเฉิน
-            </button>
-          </div>
-        </div>
         <Popup
           isOpen={showPopup}
           onClose={() => setShowPopup(false)}

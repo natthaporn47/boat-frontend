@@ -1,186 +1,27 @@
-.page-header {
-  width: 100%;
-  min-height: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 20px 30px;
-
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-
-  box-sizing: border-box;
-
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #ffffff;
-  width: 100%;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
-}
-
-.header-menu-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 60px;
-  height: 50px;
-  border-radius: 4px;
-  background: #ffffff;
-  color: #222;
-  margin-right: 15px;
-  border: none;
-  
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.header-menu-button:hover {
-  background-color: #e5e5e5;
-}
-
-.header-menu-button svg {
-  width: 30px;
-  height: 30px;
-}
-
-
-/* ชื่อหน้า */
-.page-title h1 {
-  margin: 0;
-
-  font-size: 24px;
-  font-weight: 700;
-
-  color: #172033;
-}
-
-.page-title p {
-  margin: 5px 0 0;
-
-  font-size: 13px;
-  color: #64748b;
-}
-
-/* ปุ่มโหมดจำลอง */
-.simulation-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  padding: 8px 14px;
-
-  background: #ffffff;
-  color: #0d6efd;
-
-  border: 1px solid #cfe0ff;
-  border-radius: 10px;
-
-  font-size: 14px;
-}
-
-
-/* ขนาดไอคอน */
-.simulation-button svg {
-  width: 18px;
-  height: 18px;
-}
-
-
-/* ข้อความสถานะ */
-.simulation-status {
-  display: flex;
-  align-items: center;
-
-  gap: 6px;
-
-  font-size: 11px;
-  color: #64748b;
-}
-
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.3s ease;
-}
-
-/* Raspberry Pi เชื่อมต่อได้ */
-.status-dot.online {
-  background-color: #28b463;
-}
-
-/* Raspberry Pi เชื่อมต่อไม่ได้ */
-.status-dot.offline {
-  background-color: #dc3545;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-/* สถานะระบบ */
-.system-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  font-size: 14px;
-  color: #333;
-  white-space: nowrap;
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  background-color: #28b463;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-/* เวลา */
-.current-time {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-
-  font-size: 14px;
-  color: #333;
-  white-space: nowrap;
-}
-
-.current-time svg {
-  font-size: 20px;
-  color: #687078;
-}
-
-/* ปุ่มตั้งค่า */
-.settings-button {
-  border: none;
-  background: transparent;
-  padding: 4px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-}
-
-.settings-button svg {
-  font-size: 21px;
-  color: #20252b;
-}
-
-.settings-button:hover svg {
-  color: #1677ff;
+﻿.page-header { position: sticky; top: 0; z-index: 30; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 20px; width: 100%; min-height: 80px; padding: 16px var(--page-space); border-bottom: 1px solid var(--border); background: white; box-shadow: 0 2px 7px #102c4706; }
+.header-menu-button, .settings-button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 8px; border: 1px solid transparent; border-radius: 8px; background: transparent; color: #334155; cursor: pointer; }
+.header-menu-button { border-color: var(--border); }
+.header-menu-button:hover, .settings-button:hover { background: #f1f5f9; }
+.header-menu-button svg { width: 24px; height: 24px; }
+.settings-button svg { width: 21px; height: 21px; }
+.page-title { min-width: 0; }
+.page-title h1 { margin: 0; font-size: clamp(19px, 1.5vw, 24px); line-height: 1.35; font-weight: 650; color: #172033; }
+.page-title p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+.page-title p:empty { display: none; }
+.header-right { display: flex; align-items: center; gap: 24px; }
+.system-status, .current-time { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; white-space: nowrap; }
+.current-time { font-variant-numeric: tabular-nums; }
+.current-time svg { width: 18px; height: 18px; color: var(--muted); }
+.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.online { background: #28b463; }
+.status-dot.offline { background: #dc3545; }
+@media (max-width: 1279px) { .page-header { gap: 16px; padding-block: 12px; min-height: 72px; } .header-right { gap: 16px; } .system-status, .current-time { font-size: 12px; } }
+@media (max-width: 767px) {
+  .page-header { grid-template-columns: 40px minmax(0, 1fr); gap: 8px 12px; padding: 12px 16px 8px; }
+  .header-menu-button { width: 40px; height: 40px; }
+  .header-right { grid-column: 1 / -1; justify-content: space-between; gap: 8px; padding-top: 4px; border-top: 1px solid #f1f5f9; }
+  .system-status { gap: 6px; font-size: 11px; white-space: normal; }
+  .current-time { gap: 4px; font-size: 11px; }
+  .settings-button { width: 36px; height: 36px; padding: 6px; }
+  .page-title p { font-size: 11px; }
 }

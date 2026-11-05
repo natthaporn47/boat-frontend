@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import "../components/Navbar.css";
 import { Icon } from "@iconify/react";
@@ -8,15 +8,14 @@ function Navbar({isOpen, setIsOpen}) {
     setIsOpen(false);
   };
   return (
-      <div className={`navbar ${isOpen ? "open" : ""}`}>
-        <button class="close-button " title="ปิด"onClick={() => setIsOpen(false)}>
+      <nav id="dashboard-navigation" aria-label="เมนูหลัก" className={`navbar ${isOpen ? "open" : ""}`} inert={!isOpen}>
+        <div className="navbar-brand"><Icon icon="ion:boat" aria-hidden="true" /><div><strong>Spraying Boat</strong><small>ระบบควบคุมเรือพ่นยา</small></div></div>
+        <button className="close-button" type="button" title="ปิด" aria-label="ปิดเมนู" onClick={closeMenu}>
           <Icon icon="bitcoin-icons:cross-outline" />  
         </button>
-        <br />
-        <br />
-        <br />
         <NavLink
           to="/"
+          end
           onClick={closeMenu}
           className={({ isActive }) =>
             isActive ? "menu-item active" : "menu-item"
@@ -44,7 +43,7 @@ function Navbar({isOpen, setIsOpen}) {
           <Icon icon="akar-icons:history" className="menu-icon" />{" "}
           ประวัติการทำงาน
         </NavLink>
-      </div>
+      </nav>
 
   );
 }

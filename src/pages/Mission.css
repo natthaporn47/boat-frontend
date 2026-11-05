@@ -1,283 +1,41 @@
-.mission-content {
-  padding: 16px;
+﻿.mission-main, .mission-bottom { display: grid; grid-template-columns: minmax(0, 2fr) minmax(310px, 1fr); gap: var(--section-gap); }
+.mission-main { align-items: stretch; }
+.mission-map-card { display: flex; flex-direction: column; padding: 8px; overflow: hidden; }
+.mission-map-card .map-view { --map-height: clamp(480px, 66vh, 680px); height: auto; min-height: var(--map-height); flex: 1; }
+.mission-info-card { padding: 20px; }
+.mission-name { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding: 12px; border: 1px solid #dbe8ff; border-radius: 8px; color: #1463e8; background: #eef5ff; font-weight: 600; }
+.mission-info-row { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid #edf0f3; font-size: 13px; }
+.mission-info-row svg { width: 18px; height: 18px; color: #64748b; }
+.mission-info-row > span { color: #64748b; }
+.mission-info-row strong { color: #334155; font-weight: 500; font-variant-numeric: tabular-nums; text-align: right; }
+.mission-button { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; margin-top: 10px; padding: 10px 12px; border: 1px solid transparent; border-radius: 8px; color: white; font-size: 14px; font-weight: 600; cursor: pointer; }
+.mission-button.start { background: #0d6efd; }
+.mission-button.pause { background: white; color: #334155; border-color: #d5dce5; }
+.mission-button.emergency { background: #dc3545; }
+.mission-warning { display: flex; align-items: flex-start; gap: 6px; margin: 12px 0 0; color: #64748b; font-size: 11px; line-height: 1.6; }
+.mission-warning svg { flex-shrink: 0; margin-top: 2px; }
+.mission-bottom { margin-top: var(--section-gap); }
+.route-summary, .mission-legend { padding: 20px; }
+.route-data { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.route-data > div:not(.arrow) { flex: 1; min-width: 0; text-align: center; }
+.route-data span { display: block; margin-bottom: 6px; color: #64748b; font-size: 11px; }
+.route-data strong { color: #334155; font-size: 12px; font-weight: 500; overflow-wrap: anywhere; }
+.route-data .arrow { color: #94a3b8; font-size: 18px; }
+.mission-legend p { display: flex; align-items: center; gap: 8px; margin: 8px 0; color: #475569; font-size: 12px; }
+.mission-legend p svg { width: 18px; height: 18px; color: #0d6efd; flex-shrink: 0; }
+@media (min-width: 768px) and (max-width: 1279px) {
+  .mission-main, .mission-bottom { grid-template-columns: minmax(0, 1.65fr) minmax(280px, 1fr); }
+  .mission-info-card, .route-summary, .mission-legend { padding: 16px; }
+  .mission-map-card .map-view { --map-height: clamp(460px, 60vh, 620px); }
+  .route-data { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .route-data .arrow { display: none; }
 }
-
-
-/* ส่วนบน แผนที่ + ข้อมูลภารกิจ */
-
-.mission-main {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 16px;
-}
-
-
-/* กรอบแผนที่ */
-
-.mission-map-card {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 6px;
-  min-height: 430px;
-  overflow:hidden;
-}
-
-
-/* ตอนนี้ใช้แทนแผนที่จริงก่อน */
-
-.map-placeholder {
-  width: 100%;
-  height: 430px;
-
-  background: #e8f2f7;
-
-  border-radius: 8px;
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-
-  color: #64748b;
-}
-
-.map-placeholder p {
-  font-size: 22px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.map-placeholder span {
-  margin-top: 5px;
-  font-size: 14px;
-}
-
-
-/* ข้อมูลภารกิจ */
-
-.mission-info-card {
-  background: white;
-
-  border: 1px solid #e5e7eb;
-
-  border-radius: 12px;
-
-  padding: 16px;
-
-  box-sizing: border-box;
-}
-
-.mission-info-card h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-}
-
-
-/* ชื่อสวน */
-
-.mission-name {
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 12px;
-
-  background: #eef5ff;
-
-  border: 1px solid #dbe8ff;
-
-  border-radius: 8px;
-
-  color: #1463e8;
-
-  font-weight: 600;
-
-  margin-bottom: 12px;
-}
-
-
-/* ข้อมูลแต่ละแถว */
-
-.mission-info-row {
-  display: grid;
-
-  grid-template-columns: 22px 1fr auto;
-
-  align-items: center;
-
-  gap: 6px;
-
-  padding: 10px 0;
-
-  border-bottom: 1px solid #edf0f3;
-
-  font-size: 13px;
-}
-
-.mission-info-row svg {
-  font-size: 17px;
-}
-
-.mission-info-row strong {
-  font-weight: 500;
-  color: #475569;
-}
-
-
-/* ปุ่ม */
-
-.mission-button {
-  width: 100%;
-
-  height: 42px;
-
-  margin-top: 10px;
-
-  border: none;
-
-  border-radius: 7px;
-
-  color: white;
-
-  font-size: 14px;
-
-  cursor: pointer;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 7px;
-}
-
-
-/* เริ่ม */
-
-.mission-button.start {
-  background: #0d6efd;
-}
-
-
-/* หยุด */
-
-.mission-button.pause {
-  background: white;
-
-  color: #334155;
-
-  border: 1px solid #d5dce5;
-}
-
-
-/* ฉุกเฉิน */
-
-.mission-button.emergency {
-  background: #dc3545;
-}
-
-
-/* ข้อความเตือน */
-
-.mission-warning {
-  display: flex;
-
-  align-items: center;
-
-  gap: 5px;
-
-  font-size: 11px;
-
-  color: #64748b;
-
-  margin-bottom: 0;
-}
-
-
-/* ส่วนด้านล่าง */
-
-.mission-bottom {
-  display: grid;
-
-  grid-template-columns: 1fr 280px;
-
-  gap: 16px;
-
-  margin-top: 16px;
-}
-
-
-/* สรุปเส้นทาง */
-
-.route-summary,
-.mission-legend {
-  background: white;
-
-  border: 1px solid #e5e7eb;
-
-  border-radius: 12px;
-
-  padding: 16px;
-}
-
-.route-summary h3,
-.mission-legend h3 {
-  margin-top: 0;
-}
-
-
-/* ข้อมูลเส้นทาง */
-
-.route-data {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-around;
-
-  gap: 10px;
-}
-
-.route-data div {
-  text-align: center;
-}
-
-.route-data span {
-  display: block;
-
-  font-size: 11px;
-
-  color: #64748b;
-
-  margin-bottom: 6px;
-}
-
-.route-data strong {
-  font-size: 12px;
-  color: #334155;
-}
-
-.route-data .arrow {
-  font-size: 20px;
-  color: #64748b;
-}
-
-
-/* สัญลักษณ์ */
-
-.mission-legend p {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  font-size: 13px;
-
-  margin: 10px 0;
+@media (max-width: 767px) {
+  .mission-main, .mission-bottom { grid-template-columns: minmax(0, 1fr); }
+  .mission-info-card, .route-summary, .mission-legend { padding: 16px; }
+  .mission-map-card .map-view { --map-height: clamp(300px, 48svh, 420px); height: var(--map-height); min-height: 280px; flex: auto; }
+  .route-data { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .route-data .arrow { display: none; }
+  .mission-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+  .mission-legend h3 { grid-column: 1 / -1; }
 }

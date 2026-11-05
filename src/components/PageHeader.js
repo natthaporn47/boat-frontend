@@ -66,7 +66,7 @@ function PageHeader({ title, subtitle, onMenuClick }) {
   return (
     <header className="page-header">
       {/* ปุ่มเมนู */}
-      <button className="header-menu-button" onClick={onMenuClick}>
+      <button className="header-menu-button" type="button" aria-label="เปิด/ปิดเมนู" aria-controls="dashboard-navigation" onClick={onMenuClick}>
         <Icon icon="akar-icons:three-line-horizontal" />
       </button>
       {/* ชื่อหน้า */}
@@ -95,7 +95,7 @@ function PageHeader({ title, subtitle, onMenuClick }) {
           <span>{timeString}</span>
         </div>
 
-        <button className="settings-button">
+        <button className="settings-button" type="button" aria-label="ตั้งค่า">
           <Icon icon="mdi:cog" />
         </button>
       </div>
