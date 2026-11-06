@@ -1,8 +1,8 @@
 ﻿.mission-main, .mission-bottom { display: grid; grid-template-columns: minmax(0, 2fr) minmax(310px, 1fr); gap: var(--section-gap); }
 .mission-main { align-items: stretch; }
 .mission-map-card { display: flex; flex-direction: column; padding: 8px; overflow: hidden; }
-.mission-map-card .map-view { --map-height: clamp(480px, 66vh, 680px); height: auto; min-height: var(--map-height); flex: 1; }
-.mission-info-card { padding: 20px; }
+.mission-map-card .map-view { --map-height: clamp(480px, 66vh, 680px); height: var(--map-height); min-height: var(--map-height); flex: 1 0 var(--map-height); }
+.mission-info-card { padding: 24px; }
 .mission-name { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding: 12px; border: 1px solid #dbe8ff; border-radius: 8px; color: #1463e8; background: #eef5ff; font-weight: 600; }
 .mission-info-row { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid #edf0f3; font-size: 13px; }
 .mission-info-row svg { width: 18px; height: 18px; color: #64748b; }
@@ -38,4 +38,20 @@
   .route-data .arrow { display: none; }
   .mission-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
   .mission-legend h3 { grid-column: 1 / -1; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mission-main, .mission-bottom { grid-template-columns: minmax(0, 1fr); }
+}
+
+.mission-map-heading { padding: 12px 12px 0; }
+.mission-map-caption { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 12px; font-size: 12px; color: var(--muted); }
+.mission-map-caption svg { color: var(--primary); width: 16px; height: 16px; }
+.mission-map-caption span { margin-left: auto; font-size: 11px; }
+.panel-title { margin-bottom: 16px; }
+.mission-controls { margin-top: 16px; padding-top: 8px; border-top: 1px solid var(--border); }
+.mission-legend p:nth-of-type(1) svg { color: #228452; }
+.mission-legend p:nth-of-type(4) svg { color: #dc3545; }
+@media (min-width: 1280px) { .mission-main, .mission-bottom { grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); } }
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .sidebar-expanded .mission-main, .sidebar-expanded .mission-bottom { grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr); }
 }

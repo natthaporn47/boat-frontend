@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PageHeader from "../components/PageHeader";
 import { Icon } from "@iconify/react";
 import "../pages/History.css";
 import { mockMissionHistory, missionStatuses } from "../data/mockMissionHistory";
@@ -8,15 +7,16 @@ const formatDate = date => new Date(`${date}T00:00:00+07:00`).toLocaleDateString
 const formatDuration = minutes => `${Math.floor(minutes / 60)} ชม. ${minutes % 60} นาที`;
 const PAGE_SIZE = 10;
 
-function History({ onMenuClick }) {
+function History() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [range, setRange] = useState({ start: "", end: "" });
+  const [statusFilter, setStatusFilter] = useState("");
+  const [range, setRange] = useState({ start: "", end: "", status: "" });
   const [filterError, setFilterError] = useState("");
   const [expandedId, setExpandedId] = useState(null);
   const [page, setPage] = useState(1);
   const missions = mockMissionHistory.filter(mission =>
-    (!range.start || mission.date >= range.start) && (!range.end || mission.date <= range.end)
+    (!range.start || mission.date >= range.start) && (!range.end || mission.date <= range.end) && (!range.status || mission.status === range.status)
   );
   const totalArea = missions.reduce((sum, mission) => sum + mission.areaRai, 0);
   const totalMinutes = missions.reduce((sum, mission) => sum + mission.durationMinutes, 0);
@@ -38,31 +38,29 @@ function History({ onMenuClick }) {
     setFilterError("");
     setExpandedId(null);
     setPage(1);
-    setRange({ start: startDate, end: endDate });
+    setRange({ start: startDate, end: endDate, status: statusFilter });
   }
 
   function resetFilter() {
     setStartDate("");
     setEndDate("");
-    setRange({ start: "", end: "" });
+    setStatusFilter("");
+    setRange({ start: "", end: "", status: "" });
     setFilterError("");
     setExpandedId(null);
     setPage(1);
   }
   return (
     <>
-      <PageHeader
-        title="ประวัติการทำงาน"
-        onMenuClick={onMenuClick}
-      />
       <div className="history-content">
         <p className="history-demo-notice"><Icon icon="mdi:information-outline" aria-hidden="true" /> ข้อมูลตัวอย่างสมมติ {mockMissionHistory.length} ภารกิจ สำหรับทดลองหน้าประวัติ ยังไม่ได้เชื่อมฐานข้อมูลหรือผลจากเรือจริง</p>
         <form className="history-filter" onSubmit={applyFilter}>
-          <h2 className="history-filter-title">ช่วงวันที่</h2>
+          <h2 className="history-filter-title">ค้นหาภารกิจ</h2>
           <div className="date-range">
             <label className="date-box"><span>วันที่เริ่มต้น</span><input type="date" value={startDate} onChange={event => setStartDate(event.target.value)} /></label>
             <span className="date-separator" aria-hidden="true">−</span>
             <label className="date-box"><span>วันที่สิ้นสุด</span><input type="date" value={endDate} onChange={event => setEndDate(event.target.value)} /></label>
+            <label className="date-box status-filter"><span id="history-status-label">สถานะภารกิจ</span><select aria-labelledby="history-status-label" value={statusFilter} onChange={event => setStatusFilter(event.target.value)}><option value="">ทุกสถานะ</option>{Object.entries(missionStatuses).map(([value, status]) => <option key={value} value={value}>{status.label}</option>)}</select></label>
             <button className="filter-button" type="submit"><Icon icon="mi:filter" aria-hidden="true" />กรองข้อมูล</button>
             <button className="history-reset-button" type="button" onClick={resetFilter}>ล้างตัวกรอง</button>
           </div>
@@ -89,12 +87,13 @@ function History({ onMenuClick }) {
             <h3>เวลาใช้งานรวม</h3>
             <p>{formatDuration(totalMinutes)}</p>
           </div>
+          <div className="history-card"><h3>ระยะทางรวม</h3><p>{missions.reduce((sum, mission) => sum + mission.distanceKm, 0).toFixed(2)} กม.</p></div>
         </div>
         <section className="history-list" aria-labelledby="history-list-title">
           <div className="history-list-heading"><h2 id="history-list-title">รายการภารกิจย้อนหลัง</h2><span role="status">พบ {missions.length} รายการ</span></div>
           <div className="history-table-scroll">
             <table className="history-table">
-              <thead><tr><th scope="col">ภารกิจ</th><th scope="col">วันที่ / เวลา</th><th scope="col">สถานะ</th><th scope="col">พื้นที่ที่ทำได้</th><th scope="col">ระยะทาง</th><th scope="col">รายละเอียด</th></tr></thead>
+              <thead><tr><th scope="col">ภารกิจ</th><th scope="col">วันที่</th><th scope="col">เริ่ม / สิ้นสุด</th><th scope="col">ระยะเวลา</th><th scope="col">สถานะ</th><th scope="col">พื้นที่ที่ทำได้</th><th scope="col">ระยะทาง</th><th scope="col">รายละเอียด</th></tr></thead>
               <tbody>
                 {visibleMissions.map(mission => {
                   const status = missionStatuses[mission.status];
@@ -102,13 +101,15 @@ function History({ onMenuClick }) {
                   return <React.Fragment key={mission.id}>
                     <tr>
                       <th scope="row"><span className="history-mission-name">{mission.name}</span><small>{mission.id}</small></th>
-                      <td data-label="วันที่ / เวลา"><div><span>{formatDate(mission.date)}</span><small>{mission.startTime}–{mission.endTime} น.</small></div></td>
+                      <td data-label="วันที่">{formatDate(mission.date)}</td>
+                      <td data-label="เริ่ม / สิ้นสุด">{mission.startTime}–{mission.endTime} น.</td>
+                      <td data-label="ระยะเวลา">{formatDuration(mission.durationMinutes)}</td>
                       <td data-label="สถานะ"><span className={`history-status ${status.className}`}>{status.label}</span></td>
                       <td data-label="พื้นที่ที่ทำได้">{mission.areaRai.toFixed(2)} ไร่</td>
                       <td data-label="ระยะทาง">{mission.distanceKm.toFixed(2)} กม.</td>
                       <td className="history-row-action"><button className="history-detail-button" type="button" aria-label={`${expanded ? "ซ่อน" : "ดู"}รายละเอียด ${mission.id}`} aria-expanded={expanded} aria-controls={`history-detail-${mission.id}`} onClick={() => setExpandedId(expanded ? null : mission.id)}>{expanded ? "ซ่อนรายละเอียด" : "ดูรายละเอียด"}</button></td>
                     </tr>
-                    {expanded && <tr className="history-detail-row" id={`history-detail-${mission.id}`}><td colSpan="6">
+                    {expanded && <tr className="history-detail-row" id={`history-detail-${mission.id}`}><td colSpan="8">
                       <div className="history-detail-grid">
                         <div><h3>ผลการทำงาน</h3><p>เวลาทำงาน: {formatDuration(mission.durationMinutes)}</p><p>พื้นที่ตามแผน: {mission.plannedArea.toFixed(2)} ไร่</p><p>พื้นที่ที่ทำได้: {mission.areaRai.toFixed(2)} ไร่</p></div>
                         <div><h3>ข้อมูลน้ำยาตัวอย่าง</h3>{mission.chemicals.length ? <ul>{mission.chemicals.map(chemical => <li key={chemical.name}>{chemical.name}: {chemical.quantity.toLocaleString("th-TH")} {chemical.unit}</li>)}</ul> : <p>ไม่ได้ใช้น้ำยาในภารกิจนี้</p>}</div>
@@ -117,7 +118,7 @@ function History({ onMenuClick }) {
                     </td></tr>}
                   </React.Fragment>;
                 })}
-                {missions.length === 0 && <tr><td className="history-empty" colSpan="6">ไม่พบภารกิจในช่วงวันที่เลือก ลองเปลี่ยนช่วงวันที่หรือล้างตัวกรอง</td></tr>}
+                {missions.length === 0 && <tr><td className="history-empty" colSpan="8">ไม่พบภารกิจในช่วงวันที่เลือก ลองเปลี่ยนช่วงวันที่หรือล้างตัวกรอง</td></tr>}
               </tbody>
             </table>
           </div>

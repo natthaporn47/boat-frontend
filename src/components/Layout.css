@@ -7,26 +7,46 @@
   --primary: #0d6efd;
   --card-radius: 12px;
   --sidebar-width: 248px;
+  --sidebar-rail-width: 76px;
   --page-space: clamp(16px, 2vw, 32px);
-  --section-gap: 20px;
+  --section-gap: 24px;
 }
 *, *::before, *::after { box-sizing: border-box; }
 body { color: var(--text); background: var(--dashboard-bg); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 14px; line-height: 1.5; }
 button, input, select { font: inherit; }
 button, a, input, select { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #7ab6ff; outline-offset: 3px; }
-.app-layout { position: relative; min-height: 100vh; }
-.page-area { width: 100%; min-width: 0; min-height: 100vh; transition: margin-left .2s ease, width .2s ease; }
-.home-content, .mission-content, .history-content { width: 100%; max-width: 1600px; min-width: 0; margin-inline: auto; padding: var(--page-space); }
+.app-layout { --sidebar-current-width: var(--sidebar-rail-width); position: relative; min-height: 100vh; }
+.app-layout.sidebar-expanded { --sidebar-current-width: var(--sidebar-width); }
+.page-area { width: 100%; min-width: 0; min-height: 100vh; transition: margin-left .24s cubic-bezier(.2, .7, .3, 1), width .24s cubic-bezier(.2, .7, .3, 1); }
+.home-content, .mission-content, .history-content { width: 100%; max-width: 1680px; min-width: 0; margin-inline: auto; padding: var(--page-space); }
 .dashboard-card, .mission-map-card, .mission-info-card, .route-summary, .mission-legend, .history-filter, .history-card, .history-list { min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); box-shadow: 0 2px 5px #102c4704; }
 .dashboard-card h3, .mission-content h3 { font-size: 16px; line-height: 1.4; font-weight: 600; margin: 0 0 16px; }
 .navigation-backdrop { display: none; }
-@media (min-width: 1280px) {
-  .navigation-open .page-area { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); }
+@media (min-width: 768px) {
+  .page-area { margin-left: var(--sidebar-current-width); width: calc(100% - var(--sidebar-current-width)); }
 }
 @media (max-width: 1279px) {
   :root { --page-space: 20px; --section-gap: 16px; }
-  .navigation-backdrop { display: block; position: fixed; inset: 0; z-index: 50; padding: 0; border: 0; background: #07182d70; cursor: pointer; }
+}
+@keyframes backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 767px) {
+  .navigation-backdrop { display: block; position: fixed; inset: 0; z-index: 50; padding: 0; border: 0; background: #07182d70; cursor: pointer; animation: backdrop-in 240ms ease; }
 }
 @media (max-width: 767px) { :root { --page-space: 16px; } }
-@media (prefers-reduced-motion: reduce) { .page-area, .navbar { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .page-area, .navbar { transition: none; } .navigation-backdrop { animation: none; } }
+
+.section-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.section-heading h2, .section-heading h3, .panel-title { margin: 0; color: var(--text); font-size: 15px; line-height: 1.5; font-weight: 600; }
+.section-heading > span { font-size: 12px; color: var(--muted); }
+button { transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease; }
+button:not(:disabled):active { transform: translateY(1px); }
+button:disabled { cursor: not-allowed; opacity: .5; }
+.control-start:hover, .mission-button.start:hover, .filter-button:hover { background: #095bd3; }
+.control-emergency:hover, .mission-button.emergency:hover { background: #bd2937; }
+.control-pause:hover { background: #ffebbb; }
+.mission-button.pause:hover, .history-reset-button:hover { background: #edf2f7; border-color: #b7c5d5; }
+.history-detail-button:hover { background: #e4efff; border-color: #a8c6f2; }
+.history-pagination-buttons button:not(:disabled):not([aria-current]):hover { background: #eef5ff; border-color: #a8c6f2; }
+@media (max-width: 767px) { :root { --page-space: 12px; --section-gap: 16px; } }
+@media (prefers-reduced-motion: reduce) { button { transition: none; } button:not(:disabled):active { transform: none; } }

@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import History from "./History";
 
-jest.mock("../components/PageHeader", () => () => <header>ประวัติการทำงาน</header>);
 jest.mock("@iconify/react", () => ({ Icon: () => null }));
 
 function filterDates(start, end) {
@@ -52,6 +51,23 @@ test("opens different details for spraying and survey missions", () => {
   fireEvent.click(screen.getByRole("button", { name: "ดูรายละเอียด DEMO-023" }));
   expect(screen.queryByText("น้ำยาจำลอง A: 16 ลิตร")).not.toBeInTheDocument();
   expect(screen.getByText("ไม่ได้ใช้น้ำยาในภารกิจนี้")).toBeInTheDocument();
+});
+
+test("combines date and status filters, resets pagination and restores all records", () => {
+  render(<History />);
+  fireEvent.click(screen.getByRole("button", { name: "หน้าที่ 3" }));
+  fireEvent.change(screen.getByLabelText("สถานะภารกิจ"), { target: { value: "STOPPED" } });
+  // The selection is a draft until the filter form is submitted.
+  expect(screen.getByRole("status")).toHaveTextContent("พบ 24 รายการ");
+  filterDates("2026-11-03", "2026-11-03");
+  expect(screen.getByRole("status")).toHaveTextContent("พบ 1 รายการ");
+  expect(screen.getByText("DEMO-022")).toBeInTheDocument();
+  expect(screen.queryByText("DEMO-023")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "หน้าที่ 1" })).toHaveAttribute("aria-current", "page");
+  expect(screen.getByRole("heading", { name: "ระยะทางรวม" }).parentElement).toHaveTextContent("1.82 กม.");
+  fireEvent.click(screen.getByRole("button", { name: "ล้างตัวกรอง" }));
+  expect(screen.getByLabelText("สถานะภารกิจ")).toHaveValue("");
+  expect(screen.getByRole("status")).toHaveTextContent("พบ 24 รายการ");
 });
 
 test("rejects an inverted range and handles dates without records", () => {

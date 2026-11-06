@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
-import PageHeader from '../components/PageHeader';
 import './Mission.css';
 import { Icon } from '@iconify/react';
 import Popup from '../components/Popup';
 import MapView from '../components/MapView';
 
-function Mission({ onMenuClick }) {
+function Mission() {
 
   const [showPopup, setShowPopup] = useState(false);
 
   return (
     <>
-      <PageHeader
-        title="ภารกิจ / แผนที่"
-        onMenuClick={onMenuClick}
-      />
 
       <div className="mission-content">
 
@@ -23,14 +18,16 @@ function Mission({ onMenuClick }) {
 
           {/* แผนที่ */}
           <div className="mission-map-card">
+            <div className="section-heading mission-map-heading"><h2>แผนที่ภารกิจ</h2><span>พื้นที่และเส้นทาง</span></div>
             <MapView />
+            <div className="mission-map-caption"><Icon icon="lucide:navigation" aria-hidden="true" />แผนที่พื้นที่ภารกิจ <span>ข้อมูลเส้นทางตัวอย่าง</span></div>
           </div>
 
 
           {/* ข้อมูลภารกิจ */}
           <div className="mission-info-card">
 
-            <h3>ข้อมูลภารกิจ</h3>
+            <h2 className="panel-title">ข้อมูลภารกิจ</h2>
 
             <div className="mission-name">
               <Icon icon="mdi:map-marker" />
@@ -83,6 +80,7 @@ function Mission({ onMenuClick }) {
 
             {/* ปุ่มควบคุม */}
 
+            <div className="mission-controls" aria-label="ควบคุมภารกิจ">
             <button
               className="mission-button start"
               onClick={() => setShowPopup(true)}
@@ -105,6 +103,7 @@ function Mission({ onMenuClick }) {
               <Icon icon="mdi:information-outline" />
               โปรดตรวจสอบเส้นทางและข้อมูลก่อนเริ่มภารกิจ
             </p>
+            </div>
 
           </div>
 
@@ -117,7 +116,7 @@ function Mission({ onMenuClick }) {
 
           <div className="route-summary">
 
-            <h3>สรุปเส้นทาง</h3>
+            <div className="section-heading"><h3>สรุปเส้นทาง</h3><span>ข้อมูลตัวอย่าง</span></div>
 
             <div className="route-data">
 

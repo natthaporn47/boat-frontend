@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import PageHeader from "../components/PageHeader";
 import "../pages/Home.css";
 import { Icon } from "@iconify/react";
 import Popup from "../components/Popup";
 import MapView from "../components/MapView";
 
-function Home({ onMenuClick }) {
+function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const [piOnline, setPiOnline] = useState(false);
   const [boatData, setBoatData] = useState(null);
@@ -45,162 +44,56 @@ function Home({ onMenuClick }) {
     return () => clearInterval(piTimer);
   }, []);
 
+  const statuses = [
+    { name: "Raspberry Pi", icon: "lucide:cpu", ready: piOnline, text: piOnline ? "พร้อมใช้งาน" : "ไม่พร้อมใช้งาน" },
+    { name: "ระบบควบคุม", icon: "lucide:bot", ready: Boolean(boatData), text: boatData ? "พร้อมใช้งาน" : "ไม่พร้อมใช้งาน" },
+    { name: "GPS", icon: "lucide:map-pin", ready: Boolean(boatData?.gps), text: boatData?.gps ? "รับสัญญาณปกติ" : "ไม่มีสัญญาณ" },
+    { name: "LiDAR", icon: "lucide:radar", ready: Boolean(boatData?.lidar), text: boatData?.lidar ? "ทำงานปกติ" : "ไม่พร้อมใช้งาน" },
+    { name: "ปั๊มน้ำยา", icon: "lucide:droplets", ready: null, text: "ยังไม่มีข้อมูล" },
+    { name: "การเชื่อมต่อเรือ", icon: "lucide:unplug", ready: piOnline, text: piOnline ? "เชื่อมต่อแล้ว" : "ไม่ได้เชื่อมต่อ" },
+  ];
+
   return (
-    <>
-      <PageHeader
-        title="หน้าหลัก"
-        subtitle="ระบบควบคุมเรือพ่นยาอัตโนมัติ"
-        onMenuClick={onMenuClick}
-      />
-      <div className="home-content">
-        {/* แถวที่ 1 */}
-        <div className="status-grid">
-          <div className="dashboard-card system-status-card">
-            <h3>สถานะระบบ</h3>
-
-            {/* Raspberry Pi */}
-            <div className="system-status-row">
-              <div className="system-status-name">
-                <Icon icon="fontisto:raspberry-pi" />
-                <span>Raspberry Pi</span>
-              </div>
-
-              <div className="system-status-value">
-                <span>{piOnline ? "พร้อมใช้งาน" : "ไม่พร้อมใช้งาน"}</span>
-
-                <span
-                  className={`system-status-dot ${
-                    piOnline ? "online" : "offline"
-                  }`}
-                />
-              </div>
-            </div>
-
-            {/* ระบบควบคุม */}
-            <div className="system-status-row">
-              <div className="system-status-name">
-                <Icon icon="mdi:robot-outline" />
-                <span>ระบบควบคุม</span>
-              </div>
-
-              <div className="system-status-value">
-                <span>{boatData ? "พร้อมใช้งาน" : "ไม่พร้อมใช้งาน"}</span>
-
-                <span
-                  className={`system-status-dot ${
-                    boatData ? "online" : "offline"
-                  }`}
-                />
-              </div>
-            </div>
-
-            {/* GPS */}
-            <div className="system-status-row">
-              <div className="system-status-name">
-                <Icon icon="bx:map" />
-                <span>GPS</span>
-              </div>
-
-              <div className="system-status-value">
-                <span>{boatData?.gps ? "รับสัญญาณปกติ" : "ไม่มีสัญญาณ"}</span>
-
-                <span
-                  className={`system-status-dot ${
-                    boatData?.gps ? "online" : "offline"
-                  }`}
-                />
-              </div>
-            </div>
-
-            {/* LiDAR */}
-            <div className="system-status-row">
-              <div className="system-status-name">
-                <Icon icon="gala:radar" />
-                <span>LiDAR</span>
-              </div>
-
-              <div className="system-status-value">
-                <span>{boatData?.lidar ? "ทำงานปกติ" : "ไม่พร้อมใช้งาน"}</span>
-
-                <span
-                  className={`system-status-dot ${
-                    boatData?.lidar ? "online" : "offline"
-                  }`}
-                />
-              </div>
-            </div>
-
-            {/* การเชื่อมต่อเรือ */}
-            <div className="system-status-row">
-              <div className="system-status-name">
-                <Icon icon="gravity-ui:plug-connection" />
-                <span>การเชื่อมต่อเรือ</span>
-              </div>
-
-              <div className="system-status-value">
-                <span>{piOnline ? "เชื่อมต่อแล้ว" : "ไม่ได้เชื่อมต่อ"}</span>
-
-                <span
-                  className={`system-status-dot ${
-                    piOnline ? "online" : "offline"
-                  }`}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="dashboard-card">
-            <h3>ภารกิจปัจจุบัน</h3>
-            <p>พ่นยาแปลง A</p>
-          </div>
-
-          <div className="dashboard-card control-card">
-            <h3>ควบคุมเรือ</h3>
-
-            <button
-              className="control-button control-start"
-              onClick={() => setShowPopup(true)}
-            >
-              <Icon icon="carbon:play-filled-alt"></Icon>เริ่มภารกิจ
-            </button>
-            <button
-              className="control-button control-pause"
-            >
-              <Icon icon="carbon:stop-filled-alt"></Icon>หยุดชั่วคราว
-            </button>
-            <button
-              className="control-button control-emergency"
-            >
-              <Icon icon="ci:triangle-warning"></Icon>หยุดฉุกเฉิน
-            </button>
-          </div>
+    <div className="home-content">
+      <section className="dashboard-card system-status-card" aria-labelledby="system-summary-title">
+        <div className="section-heading"><h2 id="system-summary-title">สถานะระบบ</h2><span>ตรวจสอบทุก 3 วินาที</span></div>
+        <div className="system-summary-grid">
+          {statuses.map(status => <div className="system-status-row" key={status.name}>
+            <div className="system-status-name"><Icon icon={status.icon} aria-hidden="true" /><span>{status.name}</span></div>
+            <div className="system-status-value"><span className={`system-status-dot ${status.ready === null ? "unknown" : status.ready ? "online" : "offline"}`} /><span>{status.text}</span></div>
+          </div>)}
         </div>
+      </section>
 
-        {/* แถวที่ 2 */}
-        <div className="main-grid">
-          <div className="dashboard-card location-card">
-            <h3>ตำแหน่งปัจจุบัน</h3>
+      <div className="home-overview">
+        <section className="dashboard-card current-mission-card" aria-labelledby="current-mission-title">
+          <div className="section-heading"><h2 id="current-mission-title">ภารกิจปัจจุบัน</h2><span className="mission-state-badge">รอข้อมูลภารกิจ</span></div>
+          <h3 className="current-mission-name">พ่นยาแปลง A</h3>
+          <p className="supporting-text">ภาพรวมการปฏิบัติงานของเรือ</p>
+          <dl className="mission-metrics">
+            <div><dt>เวลาเริ่ม</dt><dd>—</dd></div>
+            <div><dt>เวลาที่ทำงาน</dt><dd>—</dd></div>
+            <div><dt>ระยะทาง</dt><dd>— <small>กม.</small></dd></div>
+            <div><dt>พื้นที่</dt><dd>— <small>ไร่</small></dd></div>
+          </dl>
+        </section>
 
-            <p>Latitude : 13.812345° N</p>
-            <p>Longitude : 100.123456° E</p>
-          </div>
+        <section className="dashboard-card map-card" aria-labelledby="overview-map-title">
+          <div className="section-heading"><h2 id="overview-map-title">แผนที่การทำงาน</h2><span>ภาพรวมพื้นที่ภารกิจ</span></div>
+          <MapView />
+          <div className="location-card"><Icon icon="lucide:navigation" aria-hidden="true" /><div><strong>ตำแหน่งตัวอย่าง</strong><p>Latitude: 13.812345° N <span>Longitude: 100.123456° E</span></p></div></div>
+        </section>
 
-          <div className="dashboard-card map-card">
-            <h3>แผนที่การทำงาน</h3>
-            <MapView />
-            {/* ตรงนี้ค่อยใส่ Map */}
-          </div>
-        </div>
-
-        <Popup
-          isOpen={showPopup}
-          onClose={() => setShowPopup(false)}
-          onConfirm={(data) => {
-            console.log(data);
-            setShowPopup(false);
-          }}
-        />
+        <section className="dashboard-card control-card" aria-labelledby="boat-controls-title">
+          <div className="section-heading"><h2 id="boat-controls-title">ควบคุมเรือ</h2></div>
+          <button type="button" className="control-button control-start" onClick={() => setShowPopup(true)}><Icon icon="carbon:play-filled-alt" aria-hidden="true" />เริ่มภารกิจ</button>
+          <button type="button" className="control-button control-pause"><Icon icon="carbon:stop-filled-alt" aria-hidden="true" />หยุดชั่วคราว</button>
+          <button type="button" className="control-button control-emergency"><Icon icon="ci:triangle-warning" aria-hidden="true" />หยุดฉุกเฉิน</button>
+        </section>
       </div>
-    </>
+
+      <Popup isOpen={showPopup} onClose={() => setShowPopup(false)} onConfirm={data => { console.log(data); setShowPopup(false); }} />
+    </div>
   );
 }
 

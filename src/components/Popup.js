@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Popup.css";
 import { Icon } from "@iconify/react";
 
@@ -6,6 +6,34 @@ function Popup({ isOpen, onClose, onConfirm }) {
   const [chemicals, setChemicals] = useState([
     { chemical: "", quantity: "", unit: "ลิตร" }
   ]);
+  const dialogRef = useRef(null);
+  const closeRef = useRef(onClose);
+  useEffect(() => { closeRef.current = onClose; }, [onClose]);
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.querySelector("input, select")?.focus();
+    const onKeyDown = event => {
+      if (event.key === "Escape") {
+        setChemicals([{ chemical: "", quantity: "", unit: "ลิตร" }]);
+        closeRef.current();
+      }
+      if (event.key !== "Tab") return;
+      const controls = dialogRef.current?.querySelectorAll("button, input, select");
+      if (!controls?.length) return;
+      const first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
+    };
+  }, [isOpen]);
 
   if (!isOpen) {
     return null;
@@ -45,7 +73,7 @@ function Popup({ isOpen, onClose, onConfirm }) {
   return (
     <div className="popup-overlay">
 
-      <div className="popup-box" role="dialog" aria-modal="true" aria-labelledby="spray-popup-title">
+      <div ref={dialogRef} className="popup-box" role="dialog" aria-modal="true" aria-labelledby="spray-popup-title">
         <button
           className="popup-close-button"
           type="button"

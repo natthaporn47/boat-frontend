@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import "../components/PageHeader.css";
+import { useSidebar } from "./SidebarContext";
 
-function PageHeader({ title, subtitle, onMenuClick }) {
+function PageHeader({ title, subtitle }) {
+  const sidebar = useSidebar();
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -66,8 +68,11 @@ function PageHeader({ title, subtitle, onMenuClick }) {
   return (
     <header className="page-header">
       {/* ปุ่มเมนู */}
-      <button className="header-menu-button" type="button" aria-label="เปิด/ปิดเมนู" aria-controls="dashboard-navigation" onClick={onMenuClick}>
-        <Icon icon="akar-icons:three-line-horizontal" />
+      <button className="header-menu-button" type="button" aria-label="เปิด/ปิดเมนู" aria-controls="dashboard-navigation" aria-expanded={sidebar.isNavigationOpen} onClick={sidebar.toggleSidebar}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 18h16" />
+          <path className="menu-toggle-middle" d="M4 12h9" />
+        </svg>
       </button>
       {/* ชื่อหน้า */}
       <div className="page-title">
@@ -91,12 +96,12 @@ function PageHeader({ title, subtitle, onMenuClick }) {
         </div>
 
         <div className="current-time">
-          <Icon icon="mdi:clock-outline" />
+          <Icon icon="lucide:clock-3" aria-hidden="true" />
           <span>{timeString}</span>
         </div>
 
         <button className="settings-button" type="button" aria-label="ตั้งค่า">
-          <Icon icon="mdi:cog" />
+          <Icon icon="lucide:settings" aria-hidden="true" />
         </button>
       </div>
     </header>

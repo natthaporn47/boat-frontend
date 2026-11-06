@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { HashRouter, Routes, Route } from "react-router-dom";
 
@@ -7,33 +7,34 @@ import Mission from "./pages/Mission";
 import History from "./pages/History";
 
 import Layout from "./components/Layout";
+import { SidebarProvider } from "./components/SidebarContext";
 
-function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
+function AppRoutes() {
   return (
-    <HashRouter>
-      <Layout isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Layout>
 
         <Routes>
           <Route
             path="/"
-            element={<Home onMenuClick={() => setIsOpen((currentState) => !currentState)} />}
+            element={<Home />}
           />
 
           <Route
             path="/mission"
-            element={<Mission onMenuClick={() => setIsOpen((currentState) => !currentState)} />}
+            element={<Mission />}
           />
 
           <Route
             path="/history"
-            element={<History onMenuClick={() => setIsOpen((currentState) => !currentState)} />}
+            element={<History />}
           />
         </Routes>
       </Layout>
-    </HashRouter>
   );
+}
+
+function App() {
+  return <HashRouter><SidebarProvider><AppRoutes /></SidebarProvider></HashRouter>;
 }
 
 export default App;

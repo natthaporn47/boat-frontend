@@ -2,18 +2,18 @@
 .history-demo-notice svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
 .history-filter { padding: 20px; }
 .history-filter-title { margin: 0 0 12px; color: #334155; font-size: 14px; font-weight: 600; }
-.date-range { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 12px; }
+.date-range { display: grid; grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr) minmax(0, 1fr) auto auto; align-items: end; gap: 12px; }
 .date-box { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .date-box span { color: #64748b; font-size: 12px; }
-.date-box input { width: 190px; max-width: 100%; min-width: 0; min-height: 42px; padding: 8px 12px; border: 1px solid #d9e2eb; border-radius: 6px; background: #fff; color: #334155; font-size: 13px; }
+.date-box input, .date-box select { width: 100%; max-width: 100%; min-width: 0; min-height: 44px; padding: 8px 12px; border: 1px solid #d9e2eb; border-radius: 6px; background: #fff; color: #334155; font-size: 13px; }
 .date-separator { align-self: center; margin-top: 22px; color: #94a3b8; }
-.filter-button, .history-reset-button { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 42px; padding: 8px 16px; border: 1px solid #d9e2eb; border-radius: 6px; background: #fff; color: #475569; cursor: pointer; font-size: 13px; }
+.filter-button, .history-reset-button { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 8px 16px; border: 1px solid #d9e2eb; border-radius: 6px; background: #fff; color: #475569; cursor: pointer; font-size: 13px; }
 .filter-button { margin-left: auto; background: #0d6efd; border-color: #0d6efd; color: white; }
 .history-filter-error { margin: 12px 0 0; color: #b91c1c; font-size: 13px; }
-.history-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: var(--section-gap); }
+.history-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: var(--section-gap); }
 .history-card { padding: 20px; }
 .history-card h3 { margin: 0 0 8px; font-size: 13px; font-weight: 500; color: #64748b; }
-.history-card p { margin: 0; font-size: clamp(18px, 1.6vw, 24px); font-weight: 650; color: #172b40; font-variant-numeric: tabular-nums; }
+.history-card p { margin: 0; font-size: clamp(17px, 1.3vw, 22px); font-weight: 650; color: #172b40; font-variant-numeric: tabular-nums; }
 .history-list { margin-top: var(--section-gap); overflow: hidden; }
 .history-list-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 20px; }
 .history-list-heading h2 { margin: 0; font-size: 16px; font-weight: 600; }
@@ -23,7 +23,7 @@
 .history-table thead { background: #f8fafc; color: #64748b; }
 .history-table th, .history-table td { padding: 14px 16px; border-top: 1px solid #e9eef3; vertical-align: middle; }
 .history-table thead th { font-size: 12px; font-weight: 500; white-space: nowrap; }
-.history-table tbody th { min-width: 200px; font-weight: 400; }
+.history-table tbody th { min-width: 160px; font-weight: 400; }
 .history-table tbody td { white-space: nowrap; }
 .history-mission-name { font-weight: 600; color: #334155; }
 .history-table small { display: block; margin-top: 4px; color: #94a3b8; font-size: 11px; }
@@ -32,7 +32,7 @@
 .history-status.completed { background: #e6f7ed; color: #187344; }
 .history-status.stopped { background: #fff4d6; color: #946200; }
 .history-status.emergency { background: #fde8e9; color: #b52736; }
-.history-detail-button { min-height: 36px; padding: 6px 12px; border: 1px solid #d4e3f9; border-radius: 6px; background: #f5f9ff; color: #1d62bf; cursor: pointer; white-space: nowrap; font-size: 12px; }
+.history-detail-button { min-height: 44px; padding: 6px 12px; border: 1px solid #d4e3f9; border-radius: 6px; background: #f5f9ff; color: #1d62bf; cursor: pointer; white-space: nowrap; font-size: 12px; }
 .history-table .history-detail-row td { white-space: normal; background: #f8fafc; }
 .history-detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; line-height: 1.7; }
 .history-detail-grid > div { min-width: 0; overflow-wrap: anywhere; }
@@ -42,7 +42,7 @@
 .history-table .history-empty { padding: 40px 20px; white-space: normal; text-align: center; color: #64748b; }
 .history-pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 20px; border-top: 1px solid #e9eef3; color: #64748b; font-size: 12px; }
 .history-pagination-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
-.history-pagination-buttons button { min-width: 36px; min-height: 36px; padding: 6px 12px; border: 1px solid #d9e2eb; border-radius: 6px; background: white; color: #475569; cursor: pointer; }
+.history-pagination-buttons button { min-width: 36px; min-height: 44px; padding: 6px 12px; border: 1px solid #d9e2eb; border-radius: 6px; background: white; color: #475569; cursor: pointer; }
 .history-pagination-buttons button[aria-current='page'] { background: #0d6efd; border-color: #0d6efd; color: white; }
 .history-pagination-buttons button:disabled { opacity: .45; cursor: default; }
 @media (max-width: 1279px) {
@@ -52,15 +52,18 @@
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .history-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .date-range { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .date-separator { display: none; }
+  .filter-button { margin-left: 0; }
   .date-box { flex: 1; }
-  .date-box input { width: 100%; }
-  .history-table tbody th { min-width: 180px; }
+  .date-box input, .date-box select { width: 100%; }
+  .history-table tbody th { min-width: 160px; }
 }
 @media (max-width: 767px) {
   .history-demo-notice { padding: 12px; margin-bottom: 16px; font-size: 11px; }
   .date-range { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .date-box { grid-column: 1 / -1; }
-  .date-box input { width: 100%; min-height: 44px; font-size: 16px; }
+  .date-box input, .date-box select { width: 100%; min-height: 44px; font-size: 16px; }
   .date-separator { display: none; }
   .filter-button, .history-reset-button { min-height: 44px; margin: 0; padding: 8px; }
   .history-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -89,4 +92,32 @@
   .history-summary { grid-template-columns: minmax(0, 1fr); }
   .history-card { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
   .history-card h3 { margin: 0; }
+}
+
+.history-card { padding: 16px; box-shadow: none; }
+.history-table { min-width: 980px; }
+.history-table th, .history-table td { padding: 12px; }
+.history-table tbody th { max-width: 230px; }
+.history-table .history-mission-name { display: block; }
+.history-table tbody td { font-variant-numeric: tabular-nums; }
+.history-table tbody tr { transition: background-color 150ms ease; }
+@media (min-width: 768px) and (max-width: 1100px) {
+  .date-range { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .date-separator { display: none; }
+  .date-box { grid-column: span 2; }
+  .filter-button, .history-reset-button { grid-column: span 3; margin: 0; }
+  .history-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .date-range { grid-template-columns: minmax(0, 1fr); }
+  .filter-button, .history-reset-button, .date-box { grid-column: 1 / -1; }
+  .date-box select { font-size: 16px; }
+  .history-table { min-width: 0; }
+  .history-table tbody th { max-width: none; }
+  .history-table tbody > tr:not(.history-detail-row) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+  .history-table tbody th, .history-table td[data-label="สถานะ"], .history-table td[data-label="เริ่ม / สิ้นสุด"], .history-row-action { grid-column: 1 / -1; }
+  .history-table td[data-label]:not([data-label="สถานะ"]):not([data-label="เริ่ม / สิ้นสุด"]) { display: flex; align-items: flex-start; flex-direction: column; gap: 4px; }
+  .history-table td { min-width: 0; font-size: 12px; }
+  .history-table .history-row-action { display: block; }
+  .history-summary .history-card:last-child { grid-column: 1 / -1; }
 }

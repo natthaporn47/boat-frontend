@@ -1,8 +1,8 @@
 ﻿.page-header { position: sticky; top: 0; z-index: 30; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 20px; width: 100%; min-height: 80px; padding: 16px var(--page-space); border-bottom: 1px solid var(--border); background: white; box-shadow: 0 2px 7px #102c4706; }
 .header-menu-button, .settings-button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 8px; border: 1px solid transparent; border-radius: 8px; background: transparent; color: #334155; cursor: pointer; }
-.header-menu-button { border-color: var(--border); }
+.header-menu-button { border-color: #e4e7ec; color: #475467; border-radius: 8px; }
 .header-menu-button:hover, .settings-button:hover { background: #f1f5f9; }
-.header-menu-button svg { width: 24px; height: 24px; }
+.header-menu-button svg { width: 20px; height: 20px; }
 .settings-button svg { width: 21px; height: 21px; }
 .page-title { min-width: 0; }
 .page-title h1 { margin: 0; font-size: clamp(19px, 1.5vw, 24px); line-height: 1.35; font-weight: 650; color: #172033; }
@@ -16,12 +16,15 @@
 .status-dot.online { background: #28b463; }
 .status-dot.offline { background: #dc3545; }
 @media (max-width: 1279px) { .page-header { gap: 16px; padding-block: 12px; min-height: 72px; } .header-right { gap: 16px; } .system-status, .current-time { font-size: 12px; } }
-@media (max-width: 767px) {
-  .page-header { grid-template-columns: 40px minmax(0, 1fr); gap: 8px 12px; padding: 12px 16px 8px; }
-  .header-menu-button { width: 40px; height: 40px; }
+@media (max-width: 1023px) {
+  .page-header { grid-template-columns: 44px minmax(0, 1fr); gap: 8px 12px; padding: 12px 16px 8px; }
+  .header-menu-button { width: 44px; height: 44px; }
   .header-right { grid-column: 1 / -1; justify-content: space-between; gap: 8px; padding-top: 4px; border-top: 1px solid #f1f5f9; }
   .system-status { gap: 6px; font-size: 11px; white-space: normal; }
   .current-time { gap: 4px; font-size: 11px; }
-  .settings-button { width: 36px; height: 36px; padding: 6px; }
+  .settings-button { width: 44px; height: 44px; padding: 6px; }
   .page-title p { font-size: 11px; }
 }
+.header-menu-button, .settings-button { transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease; }
+.header-menu-button[aria-expanded="true"] { color: #344054; background: #f9fafb; border-color: #d0d5dd; }
+@media (prefers-reduced-motion: reduce) { .header-menu-button, .settings-button { transition: none; } }
